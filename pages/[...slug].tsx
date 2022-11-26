@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import { Row, Col } from "antd";
 import { fetchUsers, fetchPosts, fetchComments } from "@/lib/graphql/queries";
 import { DataList } from "@/components/DataList";
+import { Form } from "@/components/Form";
 
 interface DetailsProps {
   listType: string;
@@ -16,8 +17,8 @@ const Details: FC<DetailsProps> = ({ listType, data, slugWithBlank = false }) =>
     setSelectedItem("");
   }, [listType]);
 
-  console.log('listType', listType);
-  
+  console.log("listType", listType);
+
   return (
     <div>
       <Row>
@@ -25,7 +26,9 @@ const Details: FC<DetailsProps> = ({ listType, data, slugWithBlank = false }) =>
           <DataList items={data} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
         </Col>
         <Col sm={{ span: 18 }}>
-          <div className="pl-5">className="border-r-2 h-sc"</div>
+          <div className="pl-5">
+            <Form selectedItem={selectedItem} selectedType={listType} />
+          </div>
         </Col>
       </Row>
     </div>
