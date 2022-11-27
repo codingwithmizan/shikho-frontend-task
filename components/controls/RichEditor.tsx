@@ -44,24 +44,3 @@ const RichEditor: FC<RichEditorProps> = ({ editorLoaded, name, control }) => {
 
 export default RichEditor;
 
-//   return (
-//     <div>
-//       {editorLoaded ? (
-//         <CKEditor
-//           type=""
-//           name={name}
-//           editor={ClassicEditor}
-//           data={value}
-//           onChange={(event: any, editor: any) => {
-//             const data = editor.getData();
-//             onChange(data);
-//           }}
-//         />
-//       ) : (
-//         <div>Editor loading</div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default RichEditor;

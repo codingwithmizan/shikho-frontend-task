@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { Empty } from "antd";
-import { UnorderedListOutlined } from "@ant-design/icons";
-
+import { TbListDetails } from "react-icons/tb";
 interface DataListProps {
   items: any[];
   selectedItem: string;
@@ -18,7 +17,7 @@ export const DataList: FC<DataListProps> = ({ items, selectedItem, setSelectedIt
             className={`py-4 px-3 cursor-pointer hover:bg-sky-100 ${selectedItem === item.id && "bg-sky-300"}`}
             onClick={() => setSelectedItem(item.id)}
           >
-            <UnorderedListOutlined />
+            <TbListDetails className="inline-block" />
             <span className="pl-3 relative top-0.5">{item?.data?.title}</span>
           </div>
         ))

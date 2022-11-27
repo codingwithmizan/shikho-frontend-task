@@ -42,7 +42,7 @@ const InputControl: FC<InputControlProps> = ({
             {...field}
             type={type}
             id={name}
-            className={`rounded my-1 py-2 w-full ${className}`}
+            className={`rounded-lg my-1 py-2 w-full ${className}`}
             status={errMsg && "error"}
             size={size}
             disabled={disabled}
