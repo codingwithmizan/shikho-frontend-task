@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { AutoComplete } from "antd";
 
 const mockVal = (str: string, repeat = 1) => ({
   value: str.repeat(repeat),
 });
 
-const AutoCompleteControl: React.FC = () => {
+interface AutoCompleteControlProps {
+  selectedTags: string[];
+  setSelectedTags: (tags: string[]) => void;
+}
+
+const AutoCompleteControl: FC<AutoCompleteControlProps> = ({ selectedTags, setSelectedTags }) => {
   const [value, setValue] = useState("");
   const [options, setOptions] = useState<{ value: string }[]>([]);
 
@@ -14,7 +19,9 @@ const AutoCompleteControl: React.FC = () => {
   };
 
   const onSelect = (data: string) => {
-    console.log("onSelect", data);
+    const tags = [...selectedTags];
+    tags.push(data);
+    setSelectedTags(tags);
   };
 
   const onChange = (data: string) => {

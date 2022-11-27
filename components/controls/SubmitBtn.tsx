@@ -1,8 +1,11 @@
-import React from "react";
+import { FC } from "react";
 import { Button, ConfigProvider } from "antd";
 import { FiCopy } from "react-icons/fi";
 
-export const SubmitBtn = () => {
+interface SubmitBtnProps {
+  btnType: "CREATE" | "EDIT";
+}
+export const SubmitBtn: FC<SubmitBtnProps> = ({ btnType }) => {
   return (
     <ConfigProvider
       theme={{
@@ -18,7 +21,7 @@ export const SubmitBtn = () => {
         ghost
         icon={<FiCopy className="inline-block relative right-1" />}
       >
-        <span className="relative left-2 font-semibold">UPDATE</span>
+        <span className="relative left-2 font-semibold">{btnType === "CREATE" ? "CREATE" : "UPDATE"}</span>
       </Button>
     </ConfigProvider>
   );

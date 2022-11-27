@@ -14,17 +14,25 @@ export const UserForm: FC<UserFormProps> = ({ selectedItem }) => {
 
   const { control, handleSubmit } = useForm({
     mode: "all",
+    defaultValues: {
+      name: "",
+      address: "",
+    },
   });
 
   const onSubmit = (data: any) => {
-    console.log("user data", data);
+    if (selectedItem) {
+      console.log("user edit data", data);
+    } else {
+      console.log("user add data", data);
+    }
   };
   return (
     <div className="px-10 mt-12">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex justify-between mb-6">
-          <h2 className="text-2xl font-semibold text-gray-600">Edit a User</h2>
-          <SubmitBtn />
+          <h2 className="text-2xl font-semibold text-gray-600">{selectedItem ? "Edit" : "Create"} a User</h2>
+          <SubmitBtn btnType={selectedItem ? "EDIT" : "CREATE"} />
         </div>
         <div className="mb-6">
           <FieldLabel name="name" label="Name" className="font-semibold" />

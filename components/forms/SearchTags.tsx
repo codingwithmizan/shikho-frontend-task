@@ -12,13 +12,11 @@ export const SearchTags: FC<SearchTagsProps> = ({ selectedTags, setSelectedTags 
     const tags = [...selectedTags];
     const index = tags.findIndex((currentTag) => currentTag === tag);
     tags.splice(index, 1);
-    console.log("tag11", tag);
-    console.log("findIndex", index);
     setSelectedTags(tags);
   };
   return (
     <div>
-      <AutoComplete />
+      <AutoComplete selectedTags={selectedTags} setSelectedTags={setSelectedTags}/>
       <div className="mt-3">
         {selectedTags.length > 0 ? (
           <div className="flex gap-4">
