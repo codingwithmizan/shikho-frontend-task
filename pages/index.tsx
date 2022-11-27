@@ -6,7 +6,7 @@ const Home = () => {
   const router = useRouter();
   useEffect(() => {
     router.push("/users/crud");
-  }, []);
+  }, [router]);
   return (
     <div className="mt-10 ml-4">
       <div className="mb-8">

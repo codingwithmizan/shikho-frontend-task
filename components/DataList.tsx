@@ -14,15 +14,21 @@ export const DataList: FC<DataListProps> = ({ items, selectedItem, setSelectedIt
         items.map((item) => (
           <div
             key={item.id}
-            className={`py-4 px-3 cursor-pointer hover:bg-sky-100 ${selectedItem === item.id && "bg-sky-300"}`}
+            className={`flex py-4 px-3 cursor-pointer hover:bg-sky-100 overflow-hidden text-ellipsis text-gray-600 ${
+              selectedItem === item.id && "bg-sky-300 font-semibold text-gray-700"
+            }`}
             onClick={() => setSelectedItem(item.id)}
           >
-            <TbListDetails className="inline-block" />
-            <span className="pl-3 relative top-0.5">{item?.data?.title}</span>
+            <TbListDetails className="block w-8" />
+            <span className="pl-3 w-44 relative -top-0.5 inline-block whitespace-nowrap overflow-hidden text-ellipsis">
+              {item?.data?.title}
+            </span>
           </div>
         ))
       ) : (
-        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        <div className="h-screen flex justify-center items-center">
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        </div>
       )}
     </div>
   );

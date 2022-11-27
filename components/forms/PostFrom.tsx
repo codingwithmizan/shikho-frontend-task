@@ -1,7 +1,8 @@
 import { FC, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Input, FieldLabel, RichEditor, SubmitBtn } from "@/components/controls";
-import {SearchTags} from '@/components/forms'
+import { SearchTags } from "@/components/forms";
+import { fetchPostById } from "@/lib/graphql/queries";
 
 interface PostFromProps {
   selectedItem: string;
@@ -10,12 +11,20 @@ export const PostFrom: FC<PostFromProps> = ({ selectedItem }) => {
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([
     "this post is very helpful",
-    "would love to hear more ..."
-  ])
+    "would love to hear more ...",
+  ]);
 
   useEffect(() => {
     setEditorLoaded(true);
   }, []);
+
+  useEffect(() => {
+    if (selectedItem) {
+      // fetchPostById(selectedItem).then((res) => {
+      //   console.log("post res ponse4444", res);
+      // });
+    }
+  }, [selectedItem]);
 
   const { control, handleSubmit } = useForm({
     mode: "all",
@@ -41,7 +50,7 @@ export const PostFrom: FC<PostFromProps> = ({ selectedItem }) => {
         </div>
         <div>
           <FieldLabel name="comment" label="Comments" />
-          <p className="text-gray-500">Search Comments And Assign it To the Post  </p>
+          <p className="text-gray-500">Search Comments And Assign it To the Post </p>
           <SearchTags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
         </div>
       </form>

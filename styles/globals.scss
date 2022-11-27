@@ -1,6 +1,17 @@
+@font-face {
+  font-family: Proxima Nova;
+  src: url("../public/fonts/Proxima Nova Font.otf");
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    font-family: Proxima Nova;
+    font-style: normal;
+  }
+}
 
 .ck-editor__editable {
   min-height: 150px;
@@ -31,17 +42,19 @@
 }
 .ant-menu .ant-menu-item .ant-menu .ant-menu-submenu,
 .ant-menu .ant-menu-submenu-title {
-  border-radius: 2px;
+  border-radius: 2px !important;
 }
 
 .ant-menu-overflow-item .ant-menu-item .ant-menu-item-active .ant-menu-item-only-child {
   color: white !important;
 }
-.ant-menu-item-active, .ant-menu-item-selected {
+.ant-menu-item-active,
+.ant-menu-item-selected {
   color: white !important;
   &:hover,
   &:active,
-  &:visited , &:focus-visible{
+  &:visited,
+  &:focus-visible {
     color: white !important;
   }
 }

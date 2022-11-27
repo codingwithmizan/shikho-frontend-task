@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from "react";
 import { GetServerSideProps } from "next";
-import { Row, Col } from "antd";
+import { Row, Col, Empty } from "antd";
 import { fetchUsers, fetchPosts, fetchComments } from "@/lib/graphql/queries";
 import { DataList } from "@/components/DataList";
 import { Form } from "@/components/Form";
@@ -22,12 +22,18 @@ const Details: FC<DetailsProps> = ({ listType, data, slugWithBlank = false }) =>
   return (
     <div>
       <Row>
-        <Col sm={{ span: 6 }} className={`border-r-2 ${data.length === 0 && "h-screen"}`}>
+        <Col sm={{ span: 4 }} className={`border-r-2 overflow-hidden ${data.length === 0 && "h-screen"}`}>
           <DataList items={data} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
         </Col>
-        <Col sm={{ span: 18 }}>
+        <Col sm={{ span: 20 }}>
           <div className="pl-5">
-            <Form selectedItem={selectedItem} selectedType={listType} />
+            {slugWithBlank ? (
+              <div className="h-screen flex items-center justify-center">
+                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+              </div>
+            ) : (
+              <Form selectedItem={selectedItem} selectedType={listType} />
+            )}
           </div>
         </Col>
       </Row>
