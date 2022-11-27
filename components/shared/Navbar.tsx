@@ -11,8 +11,6 @@ interface NavbarProps {
 }
 
 export const Navbar: FC<NavbarProps> = ({ selectedNavbar, selectedSidebar }) => {
-  console.log("selectedNavbar", selectedNavbar);
-
   const items: MenuProps["items"] = [
     {
       label: (

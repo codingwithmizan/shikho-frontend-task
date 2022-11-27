@@ -1,6 +1,7 @@
 import { client } from "@/lib/graphql/apolloClient";
 import { gql } from "@apollo/client";
 
+//query all data
 export const fetchUsers = async () => {
   const { data } = await client.query({
     query: gql`
@@ -19,33 +20,8 @@ export const fetchUsers = async () => {
   return data;
 };
 
-export const fetchUserById = async (id: string) => {
-  const query = gql`
-    query User($id: String!) {
-      user(_id: $id) {
-        id
-        data {
-          email
-          first_name
-          phone
-          avatar {
-            url
-          }
-        }
-      }
-    }
-  `;
-
-  const { data } = await client.query({
-    query: query,
-    variables: { id },
-  });
-
-  return data;
-};
-
 export const fetchPosts = async () => {
-  const { data } = await client.query({
+  const { data, loading, networkStatus, error } = await client.query({
     query: gql`
       query {
         posts {
@@ -82,9 +58,34 @@ export const fetchComments = async () => {
 
   return data;
 };
+//query single data
+export const fetchUserById = async (id: string) => {
+  const userQuery = gql`
+    query User($id: String!) {
+      user(_id: $id) {
+        id
+        data {
+          email
+          first_name
+          phone
+          avatar {
+            url
+          }
+        }
+      }
+    }
+  `;
+
+  const { data } = await client.query({
+    query: userQuery,
+    variables: { id },
+  });
+
+  return data;
+};
 
 export const fetchPostById = async (id: string) => {
-  const query = gql`
+  const postQuery = gql`
     query Post($id: String!) {
       post(_id: $id) {
         id
@@ -94,23 +95,70 @@ export const fetchPostById = async (id: string) => {
             text
           }
         }
-        comments {
-          id
-          data {
-            body {
-              text
-            }
-          }
-        }
       }
     }
   `;
 
   const { data } = await client.query({
-    query: query,
+    query: postQuery,
     variables: { id },
   });
 
   return data;
 };
 
+//add data
+export const addPost = async (title: string, html: string) => {
+  const postMutation = gql`
+    mutation Post($title: String!, $html: String!) {
+      createPost(payload: { title: $title, body: { html: $html } }) {
+        id
+      }
+    }
+  `;
+  const { data } = await client.mutate({
+    mutation: postMutation,
+    variables: { title, html },
+  });
+
+  return data;
+};
+
+export const addComment = async (html: string) => {
+  const commentMutation = gql`
+    mutation Comment($html: String!) {
+      createComment(payload: { body: { html: $html } }) {
+        id
+      }
+    }
+  `;
+  const { data } = await client.mutate({
+    mutation: commentMutation,
+    variables: { html },
+  });
+
+  return data;
+};
+
+//update data
+export const updatePost = async (id: string, title: string, html: string) => {
+  const postMutation = gql`
+    mutation Post($id: String!, $title: String!, $html: String!) {
+      updatePost(_id: $id, payload: { title: $title, body: { html: $html } }) {
+        id
+        data {
+          title
+          body {
+            text
+          }
+        }
+      }
+    }
+  `;
+  const { data } = await client.mutate({
+    mutation: postMutation,
+    variables: { id, title, html },
+  });
+
+  return data;
+};

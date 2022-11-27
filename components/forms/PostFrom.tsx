@@ -2,7 +2,8 @@ import { FC, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Input, FieldLabel, RichEditor, SubmitBtn } from "@/components/controls";
 import { SearchTags } from "@/components/forms";
-import { fetchPostById } from "@/lib/graphql/queries";
+import { fetchPostById, addPost, updatePost } from "@/lib/graphql/queries";
+import { toast } from "react-toastify";
 
 interface PostFromProps {
   selectedItem: string;
@@ -14,27 +15,56 @@ export const PostFrom: FC<PostFromProps> = ({ selectedItem }) => {
     "would love to hear more ...",
   ]);
 
+  console.log("selectedItem", selectedItem);
+
   useEffect(() => {
     setEditorLoaded(true);
   }, []);
 
+  const { control, handleSubmit, reset } = useForm({
+    mode: "all",
+    defaultValues: {
+      title: "",
+      body: "",
+    },
+  });
+
   useEffect(() => {
     if (selectedItem) {
-      // fetchPostById(selectedItem).then((res) => {
-      //   console.log("post res ponse4444", res);
-      // });
+      fetchPostById(selectedItem).then((res) => {
+        reset({
+          title: res?.post?.data?.title,
+          body: res?.post?.data?.body?.text,
+        });
+      });
     }
   }, [selectedItem]);
 
-  const { control, handleSubmit } = useForm({
-    mode: "all",
-  });
-
   const onSubmit = (data: any) => {
     if (selectedItem) {
-      console.log("post edit data", data);
+      updatePost(selectedItem, data.title, data.body)
+        .then((res) => {
+          if (res?.updatePost) {
+            toast.success("Post updated successfully");
+          } else {
+            toast.error("Something went wrong");
+          }
+        })
+        .catch((err) => {
+          toast.error("Something went wrong");
+        });
     } else {
-      console.log("post add data", data);
+      addPost(data.title, data.body)
+        .then((res) => {
+          if (res?.createPost) {
+            toast.success("Post added successfully");
+          } else {
+            toast.error("Something went wrong");
+          }
+        })
+        .catch((err) => {
+          toast.error("Something went wrong");
+        });
     }
   };
   return (

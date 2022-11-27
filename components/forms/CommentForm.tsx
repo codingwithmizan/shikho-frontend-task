@@ -2,6 +2,9 @@ import { FC, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FieldLabel, RichEditor, SubmitBtn } from "@/components/controls";
 import { SearchTags } from "@/components/forms";
+import { addComment } from "@/lib/graphql/queries";
+import {toast} from 'react-toastify';
+
 interface CommentFormrops {
   selectedItem: string;
 }
@@ -26,7 +29,9 @@ export const CommentForm: FC<CommentFormrops> = ({ selectedItem }) => {
     if (selectedItem) {
       console.log("comment edit data", data);
     } else {
-      console.log("comment add data", data);
+      addComment(data.body).then((res) => {
+        console.log("addd comment res123", res);
+      });
     }
   };
   return (

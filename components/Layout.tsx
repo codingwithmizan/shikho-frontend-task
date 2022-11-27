@@ -20,7 +20,6 @@ const BaseLayout: FC<LayoutProps> = ({ children }) => {
       setSelectedNavbar(router.query?.slug[1]);
     }
   }, [router.query?.slug]);
-  console.log("router", router.query?.slug);
 
   return (
     <Layout style={{ minHeight: "100vh" }}>

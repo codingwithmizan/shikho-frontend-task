@@ -17,12 +17,12 @@ const Details: FC<DetailsProps> = ({ listType, data, slugWithBlank = false }) =>
     setSelectedItem("");
   }, [listType]);
 
-  console.log("listType", listType);
+
 
   return (
     <div>
       <Row>
-        <Col sm={{ span: 4 }} className={`border-r-2 overflow-hidden ${data.length === 0 && "h-screen"}`}>
+        <Col sm={{ span: 4 }} className={`border-r-2 overflow-hiddtaen ${data.length === 0 && "h-screen"}`}>
           <DataList items={data} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
         </Col>
         <Col sm={{ span: 20 }}>
@@ -57,7 +57,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         } else if (checkSlugTypeWithCrud(slug as any[], "posts")) {
           listType = "posts";
           res = await fetchPosts();
-          console.log("res post", res);
         } else if (checkSlugTypeWithCrud(slug as any[], "comments")) {
           console.log("comments blog");
           listType = "comments";
