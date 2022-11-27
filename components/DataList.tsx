@@ -20,7 +20,7 @@ export const DataList: FC<DataListProps> = ({ items, selectedItem, setSelectedIt
             onClick={() => setSelectedItem(item.id)}
           >
             <TbListDetails className="block w-8" />
-            <span className="pl-3 w-44 relative -top-0.5 inline-block whitespace-nowrap overflow-hidden text-ellipsis">
+            <span className="pl-3 w-52 relative -top-0.5 inline-block whitespace-nowrap overflow-hidden text-ellipsis">
               {item?.data?.title}
             </span>
           </div>
