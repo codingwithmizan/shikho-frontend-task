@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { FieldLabel, RichEditor, SubmitBtn } from "@/components/controls";
 import { SearchTags } from "@/components/forms";
 import { addComment } from "@/lib/graphql/queries";
-import {toast} from 'react-toastify';
+import { toast } from "react-toastify";
 
 interface CommentFormrops {
   selectedItem: string;
@@ -24,14 +24,20 @@ export const CommentForm: FC<CommentFormrops> = ({ selectedItem }) => {
   });
 
   const onSubmit = (data: any) => {
-    console.log("selectedTags", selectedTags);
-
     if (selectedItem) {
       console.log("comment edit data", data);
     } else {
-      addComment(data.body).then((res) => {
-        console.log("addd comment res123", res);
-      });
+      addComment(data.body)
+        .then((res) => {
+          if (res?.createComment) {
+            toast.success("Comment added successfully");
+          } else {
+            toast.error("Something went wrong");
+          }
+        })
+        .catch((err) => {
+          toast.error("Something went worng");
+        });
     }
   };
   return (

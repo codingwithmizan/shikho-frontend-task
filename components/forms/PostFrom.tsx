@@ -15,8 +15,6 @@ export const PostFrom: FC<PostFromProps> = ({ selectedItem }) => {
     "would love to hear more ...",
   ]);
 
-  console.log("selectedItem", selectedItem);
-
   useEffect(() => {
     setEditorLoaded(true);
   }, []);
