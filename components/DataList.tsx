@@ -9,7 +9,7 @@ interface DataListProps {
 
 export const DataList: FC<DataListProps> = ({ items, selectedItem, setSelectedItem }) => {
   return (
-    <div>
+    <div className="pt-2">
       {items.length > 0 ? (
         items.map((item) => (
           <div

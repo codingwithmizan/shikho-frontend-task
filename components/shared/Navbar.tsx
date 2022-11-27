@@ -39,7 +39,12 @@ export const Navbar: FC<NavbarProps> = ({ selectedNavbar, selectedSidebar }) => 
   ];
   return (
     <Header className="header flex" style={{ position: "sticky", top: 0, zIndex: 10, width: "100%" }}>
-      <div className="inline-block w-32 text-white text-lg relative top-4">React GraphQL</div>
+      <div
+        className="inline-block w-32 text-white text-lg relative top-4 cursor-pointer"
+        onClick={() => redirectTo("/")}
+      >
+        React GraphQL
+      </div>
       <Menu
         theme="dark"
         mode="horizontal"
