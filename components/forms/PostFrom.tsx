@@ -8,7 +8,10 @@ interface PostFromProps {
 }
 export const PostFrom: FC<PostFromProps> = ({ selectedItem }) => {
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
+  const [selectedTags, setSelectedTags] = useState<string[]>([
+    "this post is very helpful",
+    "would love to hear more ..."
+  ])
 
   useEffect(() => {
     setEditorLoaded(true);
@@ -38,7 +41,7 @@ export const PostFrom: FC<PostFromProps> = ({ selectedItem }) => {
         </div>
         <div>
           <FieldLabel name="comment" label="Comments" />
-          <p className="text-gray-400">Search Comments And Assign it To the Post  </p>
+          <p className="text-gray-500">Search Comments And Assign it To the Post  </p>
           <SearchTags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
         </div>
       </form>

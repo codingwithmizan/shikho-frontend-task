@@ -1,5 +1,5 @@
 import { FC, ReactNode, useState, useEffect } from "react";
-import{useRouter} from 'next/router'
+import { useRouter } from "next/router";
 import { Layout } from "antd";
 import { Navbar, Sidebar } from "@/components/shared";
 
@@ -11,17 +11,23 @@ interface LayoutProps {
 
 const BaseLayout: FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
-  const [selectedNavbar, setSelectedNavbar] = useState<string|null>(null)
-  const [selectedSidebar, setSelectedSidebar] = useState<string|null>(null)
- 
- console.log('router', router);
- 
+  const [selectedNavbar, setSelectedNavbar] = useState<string | null>(null);
+  const [selectedSidebar, setSelectedSidebar] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (router.query?.slug) {
+      setSelectedSidebar(router.query?.slug[0]);
+      setSelectedNavbar(router.query?.slug[1]);
+    }
+  }, [router.query?.slug]);
+  console.log("router", router.query?.slug);
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Navbar />
+      <Navbar selectedNavbar={selectedNavbar} selectedSidebar={selectedSidebar} />
       <Layout>
-        <Sidebar selectedSidebar={selectedSidebar}/>
-        <Content>{children}</Content>
+        <Sidebar selectedSidebar={selectedSidebar} />
+        <Content style={{ marginLeft: 200 }}>{children}</Content>
       </Layout>
     </Layout>
   );

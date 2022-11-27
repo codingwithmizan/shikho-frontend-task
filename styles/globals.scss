@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ck-editor__editable {
+  min-height: 150px;
+  border-bottom-right-radius: 8px !important;
+  border-bottom-left-radius: 8px !important;
+}
+
+.ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar,
+.ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners {
+  border-radius: var(--ck-border-radius);
+  border-top-left-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.ant-layout {
+  .ant-layout-header {
+    height: 64px;
+    padding-inline: 50px;
+    color: rgba(0, 0, 0, 0.88);
+    line-height: 64px;
+    background: #1890ff;
+  }
+}
+.ant-menu-dark {
+  color: rgba(255, 255, 255, 0.65);
+  background: #1890ff !important;
+}
+.ant-menu .ant-menu-item .ant-menu .ant-menu-submenu,
+.ant-menu .ant-menu-submenu-title {
+  border-radius: 2px;
+}
+
+.ant-menu-overflow-item .ant-menu-item .ant-menu-item-active .ant-menu-item-only-child {
+  color: white !important;
+}
+.ant-menu-item-active, .ant-menu-item-selected {
+  color: white !important;
+  &:hover,
+  &:active,
+  &:visited , &:focus-visible{
+    color: white !important;
+  }
+}

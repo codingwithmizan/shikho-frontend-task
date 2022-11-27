@@ -7,7 +7,10 @@ interface UserFormProps {
   selectedItem: string;
 }
 export const UserForm: FC<UserFormProps> = ({ selectedItem }) => {
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([
+    "Building a Huge Site With ReactJS Javascript Library",
+    "this is my second post",
+  ]);
 
   const { control, handleSubmit } = useForm({
     mode: "all",
@@ -33,7 +36,7 @@ export const UserForm: FC<UserFormProps> = ({ selectedItem }) => {
         </div>
         <div>
           <FieldLabel name="post" label="Posts" />
-          <p className="text-gray-400">Search Posts And Tag </p>
+          <p className="text-gray-500">Search Posts And Tag </p>
           <SearchTags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
         </div>
       </form>

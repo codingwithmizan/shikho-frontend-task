@@ -38,7 +38,18 @@ interface SidebarProps {
 
 export const Sidebar: FC<SidebarProps> = ({ selectedSidebar }) => {
   return (
-    <Sider width={200} className="site-layout-background">
+    <Sider
+      width={200}
+      className="site-layout-background "
+      style={{
+        overflow: "auto",
+        height: "100vh",
+        position: "fixed",
+        left: 0,
+        top: 65,
+        bottom: 0,
+      }}
+    >
       <Menu
         mode="inline"
         defaultSelectedKeys={[selectedSidebar || ""]}

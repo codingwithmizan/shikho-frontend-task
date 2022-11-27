@@ -1,13 +1,13 @@
 import { FC, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FieldLabel, RichEditor, SubmitBtn } from "@/components/controls";
-import {SearchTags} from '@/components/forms'
+import { SearchTags } from "@/components/forms";
 interface CommentFormrops {
   selectedItem: string;
 }
 export const CommentForm: FC<CommentFormrops> = ({ selectedItem }) => {
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
+  const [selectedTags, setSelectedTags] = useState<string[]>(["Building a Huge Site With ReactJS Javascript Library"]);
 
   useEffect(() => {
     setEditorLoaded(true);
@@ -33,7 +33,7 @@ export const CommentForm: FC<CommentFormrops> = ({ selectedItem }) => {
         </div>
         <div>
           <FieldLabel name="post" label="Post" />
-          <p className="text-gray-400">Search A Post and Tag this Comment </p>
+          <p className="text-gray-500">Search A Post and Tag this Comment </p>
           <SearchTags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
         </div>
       </form>
