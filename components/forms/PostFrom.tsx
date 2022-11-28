@@ -4,6 +4,8 @@ import { Input, FieldLabel, RichEditor, SubmitBtn } from "@/components/controls"
 import { SearchTags } from "@/components/forms";
 import { fetchPostById, addPost, updatePost } from "@/lib/graphql/queries";
 import { toast } from "react-toastify";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 interface PostFromProps {
   selectedItem: string;
@@ -19,12 +21,18 @@ export const PostFrom: FC<PostFromProps> = ({ selectedItem }) => {
     setEditorLoaded(true);
   }, []);
 
-  const { control, handleSubmit, reset } = useForm({
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
     mode: "all",
     defaultValues: {
       title: "",
       body: "",
     },
+    resolver: yupResolver(postSchema),
   });
 
   useEffect(() => {
@@ -36,7 +44,7 @@ export const PostFrom: FC<PostFromProps> = ({ selectedItem }) => {
         });
       });
     }
-  }, [selectedItem]);
+  }, [selectedItem, reset]);
 
   const onSubmit = (data: any) => {
     if (selectedItem) {
@@ -73,12 +81,12 @@ export const PostFrom: FC<PostFromProps> = ({ selectedItem }) => {
           <SubmitBtn btnType={selectedItem ? "EDIT" : "CREATE"} />
         </div>
         <div className="mb-6">
-          <FieldLabel name="title" label="Title" className="font-semibold" />
-          <Input control={control} name="title" placeholder="e.g. This is first title" />
+          <FieldLabel name="title" label="Title" className="font-semibold" required  />
+          <Input control={control} name="title" placeholder="e.g. This is first title" errors={errors}  />
         </div>
         <div className="mb-6">
-          <FieldLabel name="body" label="Body" />
-          <RichEditor name="body" control={control} editorLoaded={editorLoaded} />
+          <FieldLabel name="body" label="Body"  />
+          <RichEditor name="body" control={control} editorLoaded={editorLoaded}  />
         </div>
         <div>
           <FieldLabel name="comment" label="Comments" />
@@ -89,3 +97,11 @@ export const PostFrom: FC<PostFromProps> = ({ selectedItem }) => {
     </div>
   );
 };
+
+const postSchema = yup
+  .object()
+  .shape({
+    title: yup.string().required("Title is requred").trim(),
+    // body: yup.string().required("Body is requred").trim(),
+  })
+  .required();

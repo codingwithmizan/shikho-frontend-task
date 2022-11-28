@@ -56,7 +56,7 @@ const InputControl: FC<InputControlProps> = ({
           />
         )}
       />
-      <p className="error-msg">{errMsg}</p>
+      <p className="text-red-600 mt-1">{errMsg}</p>
     </div>
   );
 };

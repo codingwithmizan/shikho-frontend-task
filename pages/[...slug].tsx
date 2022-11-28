@@ -12,13 +12,9 @@ interface DetailsProps {
 }
 const Details: FC<DetailsProps> = ({ listType, data, slugWithBlank = false }) => {
   const [selectedItem, setSelectedItem] = useState("");
-
   useEffect(() => {
     setSelectedItem("");
   }, [listType]);
-
-
-
   return (
     <div>
       <Row>
@@ -53,15 +49,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         if (checkSlugTypeWithCrud(slug as any[], "users")) {
           listType = "users";
           res = await fetchUsers();
-          console.log("res user", res);
         } else if (checkSlugTypeWithCrud(slug as any[], "posts")) {
           listType = "posts";
           res = await fetchPosts();
         } else if (checkSlugTypeWithCrud(slug as any[], "comments")) {
-          console.log("comments blog");
           listType = "comments";
           res = await fetchComments();
-          console.log("res comment", res);
         } else if (checkSlugTypeWithBlank(slug as any)) {
           return {
             props: {

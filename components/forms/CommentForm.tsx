@@ -4,6 +4,8 @@ import { FieldLabel, RichEditor, SubmitBtn } from "@/components/controls";
 import { SearchTags } from "@/components/forms";
 import { addComment } from "@/lib/graphql/queries";
 import { toast } from "react-toastify";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 interface CommentFormrops {
   selectedItem: string;
@@ -16,11 +18,16 @@ export const CommentForm: FC<CommentFormrops> = ({ selectedItem }) => {
     setEditorLoaded(true);
   }, []);
 
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     mode: "all",
     defaultValues: {
       body: "",
     },
+    resolver: yupResolver(commentSchema),
   });
 
   const onSubmit = (data: any) => {
@@ -48,8 +55,8 @@ export const CommentForm: FC<CommentFormrops> = ({ selectedItem }) => {
           <SubmitBtn btnType={selectedItem ? "EDIT" : "CREATE"} />
         </div>
         <div className="mb-6">
-          <FieldLabel name="body" label="Body" />
-          <RichEditor name="body" control={control} editorLoaded={editorLoaded} />
+          <FieldLabel name="body" label="Body" required />
+          <RichEditor name="body" control={control} editorLoaded={editorLoaded} errors={errors} />
         </div>
         <div>
           <FieldLabel name="post" label="Post" />
@@ -60,3 +67,10 @@ export const CommentForm: FC<CommentFormrops> = ({ selectedItem }) => {
     </div>
   );
 };
+
+const commentSchema = yup
+  .object()
+  .shape({
+    body: yup.string().required("Body is requred").trim(),
+  })
+  .required();
