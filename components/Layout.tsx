@@ -2,6 +2,7 @@ import { FC, ReactNode, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Layout } from "antd";
 import { Navbar, Sidebar } from "@/components/shared";
+import Head from "next/head";
 
 const { Content } = Layout;
 
@@ -22,13 +23,18 @@ const BaseLayout: FC<LayoutProps> = ({ children }) => {
   }, [router.query?.slug]);
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <Navbar selectedNavbar={selectedNavbar} selectedSidebar={selectedSidebar} />
-      <Layout>
-        <Sidebar selectedSidebar={selectedSidebar} />
-        <Content style={{ marginLeft: 200 }}>{children}</Content>
+    <>
+      <Head>
+        <title>Shikho  Blog</title>
+      </Head>
+      <Layout style={{ minHeight: "100vh" }}>
+        <Navbar selectedNavbar={selectedNavbar} selectedSidebar={selectedSidebar} />
+        <Layout>
+          <Sidebar selectedSidebar={selectedSidebar} />
+          <Content style={{ marginLeft: 200 }}>{children}</Content>
+        </Layout>
       </Layout>
-    </Layout>
+    </>
   );
 };
 
